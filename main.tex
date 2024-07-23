@@ -1,0 +1,306 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MODELE DE MANUSCRIT DE THESE 
+% DE L'UNIVERSITE PARIS CITE
+% OFFICIEL
+
+% LaTeX Template
+% Version overleaf (14/10/2023) 
+% Format BOOK
+% Par Aleksandra SAVINA, PhD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%----------------------------------------------------------------------------------------
+%	PREAMBULE // PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+\documentclass[a4paper,12pt,twoside,french]{book}
+[a4paper,12pt,twoside]
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+%	MARGIN SETTINGS
+\usepackage[a4paper,left=3cm,right=2.5cm,top=3cm,bottom=3cm, twoside]{geometry}
+
+\usepackage{xcolor}
+\usepackage{stmaryrd}
+\usepackage{amssymb}
+\usepackage{amsmath, amsthm}
+% 创建一个定理样式
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{defn}[thm]{Definition} % 共享编号
+
+\usepackage{libertine}
+
+\usepackage[most]{tcolorbox}
+
+%\usepackage{cite}
+\usepackage{hyperref} % for references (\ref, \label), url
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=black,      
+    urlcolor=black,
+    citecolor=black,
+    pdfpagemode=FullScreen,
+    }
+\usepackage{cleveref}
+\usepackage[
+    backend=biber, 
+    natbib=true,
+    style=numeric,
+    sorting=none
+]{biblatex} %Imports biblatex package
+
+\addbibresource{biblio.bib} %Import the bibliography file
+
+\usepackage{graphicx} % to include images
+%\usepackage[pdftex]{graphicx}
+\graphicspath{ {figures/} }
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{array, multirow, tabularx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{apalike}
+\usepackage{minitoc}
+\usepackage{tikz}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage[strict]{changepage}
+\usepackage{siunitx}
+\selectlanguage{french}%
+
+\usepackage{enumitem}
+\usepackage{epigraph}
+%\usetikzlibrary{shadows.blur}
+\usepackage{lscape}
+\usepackage{titletoc}
+\usepackage{mdframed}
+
+\usepackage{tabu}
+\usepackage{pdfpages}
+
+\usepackage{arydshln}
+%\usepackage[nonumberlist]{glossaries}
+\usepackage{calc}
+\usepackage[]{titlesec} 
+\definecolor{linkColor}{HTML}{32a852}
+%\usepackage[colorlinks=true,citecolor=linkColor,linkcolor=black]{hyperref}
+
+\addto\captionsfrench{%
+  \renewcommand{\listfigurename}{Liste des figures}%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{sectsty}
+%\sectionfont{\color{CentraleRed}}  % sets colour of sections
+%\subsectionfont{\color{uclablue}}  % sets colour of subsections, ou gray, teal 
+\definecolor{darkseagreen}{rgb}{0.56, 0.74, 0.56}
+\usepackage{lipsum}
+
+\title{NMR global data Version2}
+\author{Aleksandra Savina}
+\date{October 2022}
+
+\newtcbtheorem[number within=chapter]{Theorem}{}{
+        enhanced,
+        sharp corners,
+        attach boxed title to top left={
+            xshift=-1mm,
+            yshift=-5mm,
+            yshifttext=-1mm
+        },
+        top=1.5em,
+        colback=white,
+        colframe=blue!75!black,
+        fonttitle=\bfseries,
+        boxed title style={
+            sharp corners,
+            size=small,
+            colback=blue!75!black,
+            colframe=blue!75!black,
+        } 
+    }{thm}
+
+\newtcbtheorem[number within=chapter]{Definition}{}{
+        enhanced,
+        sharp corners,
+        attach boxed title to top left={
+            xshift=-1mm,
+            yshift=-5mm,
+            yshifttext=-1mm
+        },
+        top=1.5em,
+        colback=white,
+        colframe=blue!75!black,
+        fonttitle=\bfseries,
+        boxed title style={
+            sharp corners,
+            size=small,
+            colback=blue!75!black,
+            colframe=blue!75!black,
+        } 
+    }{def}
+
+\newenvironment{myTheorem}[2]{ \begin{Theorem}[adjusted title=#1]{}{#2} 
+  \textbf{Theorem \thetcbcounter.} }{\end{Theorem}}
+
+  \newenvironment{myDefinition}[2]{ \begin{Definition}[adjusted title=#1]{}{#2} 
+  \textbf{Definition \thetcbcounter.} }{\end{Definition}}
+
+%----------------------------------------------------------------------------------------
+%	HEADERS AND FOOTERS
+%----------------------------------------------------------------------------------------
+
+%\fancyhead[RO]{\scshape \leftmark}
+%\fancyhead[L]{\scshape \righttmark}
+\fancyhead{} % clear all header fields
+\fancyfoot{} % clear all footer fields
+%\fancyhead[LE,RO]{\slshape \rightmark}
+\fancyfoot[C]{--~\thepage~--}
+
+\usepackage{emptypage}
+
+%\leftmark : adds name and number of the current top-level structure (for example, Chapter for reports and books classes; Section for articles ) in uppercase letters.
+% \rightmark : adds name and number of the current next to top-level structure (Section for reports and books; Subsection for articles) in uppercase letters.
+
+%%%%%%Glossaire
+%\usepackage{glossaries}
+\usepackage[acronym,xindy,toc]{glossaries} % nomain, if you define glossaries in a file, and you use \include{INP-00-glossary}
+%[nomain,acronym,xindy,toc]
+\makeglossaries
+
+\usepackage[xindy]{imakeidx}
+\makeindex
+%\input{auxilliaires/glossaire}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%----------------------------------------------------------------------------------------
+%	DOCUMENT
+%----------------------------------------------------------------------------------------
+\begin{document}
+
+%\maketitle
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+	\begin{titlepage}
+		\begin{center}
+			\begin{tabular}{c@{\hskip 7cm}c@{\hskip 1cm}}
+				\includegraphics[height=2.5cm]{figures/PageTitre/UParisCitelogo.jpg} &
+				%si autre logo : \includegraphics[height=2.3cm]{figures/PageTitre/logo_ic_2021.jpg}
+			\end{tabular}
+		\end{center}
+	
+		\begin{center}
+		
+\vspace*{.03\textheight}
+\textsc{\LARGE Université Paris Cité}\\[0.2cm] % Univ name
+		
+        %Équipe de recherche\\
+  
+  			\vfill
+ 
+	 		\rule{\textwidth}{0.8pt} \\ % Horizontal line
+	 		\vspace{10pt}
+	 		 { \LARGE \bfseries Interest rate and term structure modeling \textit{}} % Thesis title
+	 		 \vspace{10pt}
+	 		 \rule{\textwidth}{0.8pt} \\ % Horizontal line
+		\end{center}
+		
+		\vfill
+		% Author and supervisor	
+		\begin{center}
+			Presented by \textsc{\Large Hengze WANG / Ruoqi ZHU}\\[1cm] 
+			Master project in \textsc{\large \large ISIFAR}\\[1cm]
+		
+	
+			
+			\vspace{1cm}
+	
+			April 2024
+		\end{center}
+		
+		\vspace{1cm}
+
+	\newpage %page de garde vide
+	\thispagestyle{empty} %page de garde vide
+	\end{titlepage}
+
+\renewcommand{\chaptermark}[1]{\markboth{\textsc{#1}}{}}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+
+
+\frontmatter % numérote les pages en chiffres romains jusqu'a la commande mainmatter
+%\setcounter{secnumdepth}{3} % organisational level that receives a numbers
+%\setcounter{tocdepth}{3}
+\tableofcontents % Prints the main table of contents
+\clearpage
+%	Liste des abréviations-
+\input{auxilliaires/abreviations}
+
+
+% --------------------------------------------------------------
+%                         Début du corps
+% --------------------------------------------------------------
+
+\mainmatter
+\setlength{\parskip}{.7em}
+
+%\titlespacing*{\section}{0pt}{.9em}{.8em}
+\renewcommand{\baselinestretch}{1.1}
+
+\fancyhead[RO]{\leftmark}
+\fancyhead[LE]{\textsc{\chaptername~\thechapter}}
+
+
+\fancyhead{} % clear all header fields
+\fancyhead[OL]{\textsc{Introduction}}
+\input{chapters/intro.tex} %partie introduction ou avant-propos
+
+\fancyhead{} % clear all header fields
+
+\fancyhead[RO]{\leftmark}
+\fancyhead[LE]{\textsc{\chaptername~\thechapter}}
+
+\input{chapters/chap1}
+\input{chapters/chap2}
+
+%\input{chapters/article}
+%\input{chapters/chaptercontrib}
+
+%\part*{Discussion et conclusion générale}
+% \fancyhead{} % clear all header fields
+% \fancyhead[OL]{\textsc{Discussion et perspectives}}
+% \input{chapters/discussion.tex}
+
+
+\input{chapters/conclusion}
+
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+%\printbibliography %Prints bibliography
+\fancyhead{} % clear all header fields
+\fancyhead[OL]{\textsc{Bibliographie}}
+\printbibliography[
+heading=bibintoc,
+title={Bibliographie}]
+
+%----------------------------------------------------------------------------------------
+
+%: ----------------------- glossary ------------------------
+%\printindex
+%\fancyhead{} % clear all header fields
+%\fancyhead[OL]{\textsc{Glossaire}}
+%\printglossary[title=Glossaire,toctitle=Glossaire]
+
+%\input{auxilliaires/glossaire} 
+
+
+\end{document}  

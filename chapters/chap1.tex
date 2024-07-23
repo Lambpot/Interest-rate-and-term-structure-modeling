@@ -1,0 +1,89 @@
+\chapter{Marché de taux et les différents types de taux} % Main chapter title
+
+%----------------------------------------------------------------------------------------
+%	SECTION 
+%----------------------------------------------------------------------------------------
+
+Nous commençons par les principales caractéristiques des taux. Dans la suite, \( t < T < S \) désignent trois instants, un taux d'intérêt \( r \), relatif à l'intervalle de temps \([T,S]\), peut être de l'un des types suivants :
+
+\textbf{Simple ou composé}:
+
+\( r \) est simple si : 
+\begin{equation}
+I = C \times nr
+\end{equation}
+
+Où : 
+\( I \) est les intérêts,
+\( C \) est le capital initial qui s'exprime la somme d'argent initialement prêtée ou investie,
+\( n \) est la durée pour laquelle l'argent est prêté ou investi, souvent exprimée en années.
+
+\( r \) est composé si : 
+\begin{equation}
+A = P \times (1 + r)^n
+\end{equation}
+
+Où :
+\( A \) est le montant accumulé après \( n \) périodes,
+\( P \) est le principal ou le montant initial investi,
+\( r \) est le taux d'intérêt par période,
+\( n \) est le nombre de périodes d'investissement.
+
+\textbf{Annualisé}:
+\( r \) est un taux annualisé s'il est évalué sur une base annuelle.
+
+\( r \) est un taux composé annualisé si : 
+\begin{equation}
+C_S = C_T e^{r(S-T)}
+\end{equation}
+
+où \( C_t \) représente la valeur du capital au moment \( t \)
+
+\( r \) est un taux simple annualisé si : 
+\begin{equation}
+C_S = C_T(1 + (S - T)r)
+\end{equation}
+
+\textbf{Spot ou forward}:
+\( r \) est un taux spot s'il est évalué à \( T \), c'est-à-dire au début de l'intervalle de référence.
+\( r \) est un taux forward s'il est évalué à un instant \( t < T \), c'est à dire avant l'intervalle de référence.
+
+\textbf{Taux forward annualisé simple} \( L(n;N,M) \), pour la période \([t_N, t_M]\), évalué en \( n \), d'après :
+\begin{equation}
+L(n;N,M) = \frac{1}{(M-N)\triangle} \left(\frac{p(n,N)}{p(n,M)} - 1\right)
+\end{equation}
+
+où :
+    $\triangle=\frac{\bar T}{\bar N}$, et $t_n=n\triangle$ avec $0\le n \le \bar N$.
+    
+    $p(n,N)$ est le prix de $T$-bonds à l'instant $t_n=n\triangle$, de maturité $T=N\triangle$.
+    
+    Où $$D(n,N) := - \sum_{k = n}^{N-1} \exp{r^k} ,\quad 0 \le n \le N \le \bar{N}$$
+
+Appelé facteur d'escompte sur la période $[t_n,t_N]$ : tous deux représentent la valeur au temps n d'une unité monétaire livrée au temps $N$. Cependant $p(n,N)$ est une valeur observable au temps $n$ car elle représente le prix d'un contrat qui est négocié sur le marché au temps $n$ ; par contre $D(n,N)$ n'est pas connue au temps $n$, car il s'agit d'une valeur aléatoire qui dépend de l'évolution des taux jusqu'à l'échéance. Cette observation sera rendue rigoureuse en termes mathématiques dans la section suivante.
+
+\textbf{Taux forward composé} \( R(n;N,M) \), pour la période \([t_N, t_M]\), évalué en \( n \), d'après :
+\begin{equation}
+R(n,N) = R(n;N,N+1) = \log \left(\frac{p(n,N)}{p(n,N+1)}\right)
+\end{equation}
+
+$r_n := R(n,n)$ \textbf{taux spot composé}, pour la période $[t_n, t_{n+1}]$ : Nous appellerons simplement $r$ le taux court. Notons que, par définition, nous avons
+
+\begin{equation}
+p(n,n+1)= e^{-r_n}
+\end{equation}
+
+Notons $B$ la valeur du compte du marché monétaire, $B$ est donnée par la formule récursive : 
+\begin{equation}
+B_{n+1} = B_{n}e^{r_n}
+\end{equation}
+
+ou plus gégéralement : 
+\begin{equation}
+B_{N} = B_{n}\exp{\left(\sum_{k = n}^{N-1}r_k\right)}, \quad 0 \le n \le N
+\end{equation}
+
+où, par convention, nous supposons que $B_0 = 1$. Donc on a : 
+\begin{equation}
+B_{N} = \exp{\left(\sum_{k = 0}^{N-1}r_k\right)}
+\end{equation}

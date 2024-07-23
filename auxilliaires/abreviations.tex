@@ -1,0 +1,33 @@
+%\chapter*{Liste des abréviations}
+%\addcontentsline{toc}{chapter}{Liste des abréviations} 
+
+\printglossary[type=\acronymtype, title=Liste des abréviations,toctitle=Liste des abréviations]
+
+\newglossaryentry{latex}
+{
+        name=latex,
+        description={Is a mark up language specially suited for 
+scientific documents}
+}
+
+\begin{table}[h]
+\centering
+\caption{Table des Définitions des Symboles}
+\begin{tabular}{|>{\bfseries}l|p{10cm}|}
+\hline
+Symbole & Définition \\
+\hline
+\( \Delta \) & Longueur de chaque sous-intervalle dans l'intervalle de temps \([0, \overline{T}]\) \\
+\( \overline{T} \) & Longueur totale de l'intervalle de temps considéré \\
+\( \overline{N} \) & Nombre de sous-intervalles dans lesquels l'intervalle de temps est divisé \\
+\( t_n \) & Dates spécifiques où les transactions ont lieu, définies par \( t_n = n\Delta \) \\
+\( p(n, N) \) & Prix d'une obligation T au temps \(t_n\) avec une maturité \(T = N\Delta\) \\
+\( T \) & Temps de maturité de l'obligation T, qui est également \(N\Delta\) \\
+\( p(N, N) \) & Prix de l'obligation T à maturité, par définition égal à 1 \\
+\( p(0, N) \) & Famille de prix des obligations T aujourd'hui, varie avec \(N = 1, 2, \ldots, \overline{N}\) \\
+\( p^*(0, N) \) & Structure à terme observée sur le marché pour les obligations à coupon zéro, représentant les données initiales pour les processus de prix \\
+\([n-1, n]\) & Notation pour la période \(n\), souvent référencée comme l'intervalle de \(t_{n-1}\) à \(t_n\) \\
+\hline
+\end{tabular}
+\end{table}
+

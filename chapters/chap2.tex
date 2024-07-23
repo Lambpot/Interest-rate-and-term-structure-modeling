@@ -1,0 +1,394 @@
+\chapter{Modèles de marché pour les taux d’intérêt} % Main chapter title
+
+\( r_n \) désigne une valeur aléatoire qui devient connue au temps \( n \), en particulier, le taux d'intérêt était supposé déterministe  même s'il n'était pas constant, à partir du paragraphe suivant, \( r \) (et par conséquent \( B \)) sera décrit par un processus stochastique. 
+
+Il existe plusieurs approches de la modélisation stochastique des taux d'intérêt en temps discret. Nous examinons ici deux des principales classes de modèles, appelées respectivement de type court et de type forward. 
+\section{Modèles Short}
+Dans un modèle court, la dynamique du taux court \( r \) est définie par un processus stochastique approprié. Les obligations T, notées \( p(\cdot, N) \), sont considérées comme des dérivés du sous-jacent \( r \) avec une échéance \( N \) et un paiement final égal à 1, sur la base de la condition \( p(N, N) = 1 \). L'idée est d'utiliser la théorie classique de l'arbitrage pour obtenir les prix des obligations T à partir de la dynamique de \( r \). Voici quelques aspects de cette approche :
+
+\begin{enumerate}
+    \item Le taux court n'est pas un actif qui est négocié sur le marché : par conséquent, un modèle du type court est généralement, même dans les cas les plus simples, un modèle de marché incomplet, à savoir que la mesure de martingale n'est pas unique;
+    \item Étant donné que la structure à terme initiale \( p^*(0, N) \), pour \( N = 1, \ldots, \bar{N} \), comprend des données de marché qui doivent être reproduites par le modèle, il est nécessaire de déterminer explicitement les conditions sur le processus \( r \) afin que les prix théoriques des obligations T \( p(\cdot, N) \) satisfassent la condition
+\end{enumerate}
+\begin{equation}
+    p(0, N) = p^*(0, N), \quad \text{pour tout } N \leq \bar{N}.
+\end{equation}
+
+Où \( p(0, N) \)représente le prix théorique calculé dans le modèle au temps \( t=0 \) (souvent le moment présent ou le point d'évaluation), pour une obligation (ou un instrument financier similaire) qui arrive à échéance au temps \( N \).
+
+\( p^*(0, N) \) fait référence au prix observé sur le marché au temps \( t=0 \) pour une obligation avec la même échéance \( N \), ou c'est ce qu'on appelle les données du marché.
+
+Dans les modèles financiers, notamment dans la création de modèles de tarification, le prix théorique \( p(0, N) \) doit être aligné avec le prix du marché \( p^*(0, N) \) à travers le processus de calibrage. Ce processus assure que le modèle reflète non seulement une logique financière théorique mais aussi qu'il capte précisément les conditions actuelles du marché.
+
+La comparaison entre \( p(0, N) \) et \( p^*(0, N) \) permet de vérifier l'efficacité et l'applicabilité du modèle. Si les différences entre ces deux sont significatives, il peut être nécessaire d'ajuster les hypothèses ou les paramètres d'entrée du modèle.
+
+Lors de la modélisation des taux d'intérêt à court terme sur les marchés financiers, nous voulons définir la dynamique de ces taux par un processus stochastique sous la mesure de harness. Ce processus stochastique repose sur un certain nombre de paramètres qui contrôlent le comportement et les résultats du modèle.
+
+\begin{defn}
+Une mesure de martingale avec numéraire \( B \) est une mesure de probabilité \( Q \) équivalente à \( P \), par rapport à laquelle les processus de prix actualisés des obligations T sont des martingales, c'est-à-dire qu'il est vérifié que :
+\[
+\tilde{p}(n, N) = \mathbb{E}^Q[\tilde{p}(n + 1, N) \mid \mathcal{F}_n], \quad 0 \leq n < N \leq \bar{N}.
+\]
+\end{defn}
+
+La condition de martingale est équivalente à
+\begin{equation}
+    p(n,N) = E^Q[D(n,N)|\mathcal{F}_n], \quad 0 \leq n < N \leq \bar{N}
+\end{equation}
+
+
+Le modèle court est un modèle de processus stochastique en temps discret utilisé pour attribuer une dynamique au taux d'intérêt à court terme \( r \). Dans ce modèle, la dynamique du taux est directement déterminée par une mesure martingale \( Q \). Dans la configuration du modèle, \( r \) est considéré comme un processus de Markov défini sur un espace de probabilité filtré \( (\Omega, \mathcal{F}, Q, (\mathcal{F}_n)) \), et son noyau de transition est donné par \( Q_n \).
+\[
+(Q_n \phi)(r_n) := \mathbb{E}^Q[\phi(r_{n+1}) \mid \mathcal{F}_n] = \int_{\mathbb{R}} \phi(\theta) Q_n (r_n, d\theta)
+\]
+
+$Q_n$ dénote deux choses différentes. A gauche de l'équation, $Q_n$ est une application linéaire qui s'applique à une fonction phi et $Q_n$ phi est également une fonction, définie par l'expression du milieu. A droite de l'équation, $Q_n$ est une mesure de probabilité, où $Q_n(r_n, A)$ = probabilité que $r_{n+1}$ appartienne à l'ensemble A, sachant $r_n$ (ou sachant $F_n$ ce qui équivalent ici). L'intégrale est donc une intégrale de Lebesgue par rapport à la mesure $Q_n$, comme lorsqu'on écrit une espérance sous la forme d'une intégrale par rapport à sa mesure de probabilité. 
+
+pour chaque fonction intégrable à valeur réelle $\phi$ sur $\mathbb{R}$. Nous permettons à l'état de l'espace d'être $\mathbb{R}$ et donc pas nécessairement discret.
+
+À l'échéance \( N \), la valeur nominale des obligations \( P(n, N) \) est 1. Sous une mesure risque-neutre \( Q \), la formule de valorisation de l'obligation s'exprime par :
+\[
+P(n, N) = \mathbb{E}^Q \left[ \exp{-\int_n^N r_u \, du} \mid \mathcal{F}_n \right].
+\]
+Ici, \( Q \) est une mesure de probabilité neutre au risque. En établissant et en ajustant la courbe de rendement, et en dérivant le taux forward instantané, on obtient :
+\[
+f(n, N) = -\frac{\partial \ln P(n, N)}{\partial N}.
+\]
+Le modèle d'équilibre (sans arbitrage) associe le modèle d'équilibre à l'absence d'arbitrage et la structure à terme des taux d'intérêt. Le taux d'intérêt modélisé sous forme de dérive ne permet pas à l'arbitrage de se produire. Pour \( T \), si la structure à terme des taux d'intérêt n'est pas alignée, la courbe de rendement ajustée peut ne pas être cohérente sur le long terme. Parmi les modèles les plus connus, nous trouvons le modèle de Vasicek, Cox-Ingersoll-Ross et autres.
+
+Supposé $r$ par récursive : 
+\begin{equation}
+    r_{n+1} = r_n + (\Phi_n - a_n r_n) \Delta + \sigma_n \sqrt{\Delta} W_n, \quad n = 0, \ldots, \bar{N} - 1
+\end{equation}
+Où 
+\begin{itemize}
+    \item \( r_n \) représente le taux d'intérêt à court terme pour la période \( n \).
+    \item \( \Phi_n \) est un paramètre dépendant du temps, utilisé pour ajuster l'objectif de la régression vers la moyenne du taux d'intérêt. Il peut être compris comme ajustant la vitesse ou la direction avec laquelle le taux d'intérêt revient à un niveau moyen.
+    \item \( a_n \) est également un paramètre dépendant du temps, représentant la vitesse de régression vers la moyenne. Il détermine la rapidité avec laquelle le taux d'intérêt revient à sa valeur moyenne à long terme.
+    \item \( \Delta \) est le pas de temps, c'est-à-dire l'intervalle de temps entre les périodes \( [n, n+1] \).
+    \item \( \sigma_n \) représente la volatilité du taux d'intérêt pour la période \( n \), un paramètre dépendant du temps qui représente l'incertitude ou le risque de variations du taux d'intérêt.
+    \item \( W_n \) est une variable aléatoire qui représente les perturbations aléatoires distribuées normalement, utilisée pour modéliser les fluctuations aléatoires du marché pendant la période \( n \).
+\end{itemize}
+
+Comme $W_n \sim \mathcal{N}(0,1)$,  par théorème central limite inverse, on a 
+\begin{equation}
+    r_{n+1} \sim \mathcal{N} \left( {r_n + (  \Phi_n - a_n r_n) \Delta, \sigma^2_n \Delta} \right)
+\end{equation}
+On introduit la forme générale de model Hull-White qui est une équation différentielle stochastique de la forme : 
+$\displaystyle dX_{t}=\mu _{t}\,dt+\sigma _{t}\,dW_{t}$ qui est définie comme : 
+\begin{equation*}
+    dr_t = (\Phi(t)-a(t)r_t)dt +\sigma (t)dW_t
+\end{equation*}
+où $\sigma = \sigma (t)$ est la fonction de volatilité (déterministe), $a = a(t)$ est la vitesse (ou le taux) de retour à la moyenne, $\Phi$ est une fonction qui régit la moyenne des taux longs et $W$ est un mouvement brownien réel.
+
+Nous insistons sur le fait que le processus r peut ici prendre des valeurs négatives arbitrairement grandes. A partir de la dynamique précédente, nous voyons maintenant comment obtenir les prix des T-bonds. A cet effet, nous utilisons la formul \(2.2\) qui donne l'expression des prix p(n,N) en termes d'espérance conditionnelle sous Q des taux courts $r_k$ avec $n \le k < N$. Avant d'énoncer le résultat suivant, nous introduisons quelques notations que nous utiliserons systématiquement dans la suite. Mettre
+
+
+Nous commençons définir le prix des T-bonds une fonction $\varphi$, soit 
+\begin{equation}
+    \varphi_0 (r) = e^{-r}
+\end{equation}
+
+et $\varphi_{n}^{N}$ tel que 
+
+\begin{equation}
+\begin{cases}
+    \varphi^{N}_{N-1}(r) = 1\\
+\varphi^{N}_{n-1}(r) = Q_{n-1}(\Phi^{N}_n) (r), \quad 1 \leq n \leq N\\
+\end{cases}
+\end{equation}
+
+pour tout $N \le \bar{N}$ et $r \in \mathbb{R}$
+
+Soit la mesure martingale $Q$,
+\begin{equation}
+p(n, N) = e^{-r_n} \phi_n^N (r_n), \quad 0 \leq n < N \leq \overline{N},
+\end{equation}
+Car 
+\begin{equation*}
+    \frac{p(n,N)}{p(n,n+1)} = E^Q[p(n+1,N)|F_n], \quad 0 \leq n < N \leq \bar{N}
+\end{equation*}
+on a 
+\begin{align*}
+p(n-1,N) 
+    &= p(n-1,n) E^Q[p(n,N)|\mathcal{F}_{n-1}]\\
+    &= e^{-r_{n - 1}} \mathbb{E}^Q \left[ e^{-r_n} \phi_n^N (r_n) \mid \mathcal{F}_{n-1} \right] \\
+    &= e^{-r_{n - 1}} Q_{n-1} (\phi_n^N (r_{n-1})) = e^{-r_n - 1} \phi_{n-1}^N (r_{n-1})\\
+\end{align*}
+
+
+\subsection{Modèle Affine}
+
+Si des fonctions \( f_n, g_n \) existent telles que
+\begin{equation}
+\tilde{Q}_n(r, \lambda) = \exp(-f_n(\lambda) - g_n(\lambda)r), \quad r, \lambda \in \mathbb{R},
+\label{eq:my_equation_2.8}
+\end{equation}
+pour chaque \( n, 0 \leq n \leq N \), alors les fonctions \( \varphi_n^N \) dans (4.18) ont l'expression suivante :
+\begin{equation}
+\varphi_n^N (r) = \exp(-A_n^N - B_n^N r), \quad r \in \mathbb{R},
+\label{eq:my_equation_2.9}
+\end{equation}
+avec les constantes \( A_n^N, B_n^N \) définies par les récursions suivantes :
+\begin{equation}
+\begin{cases}
+    A_{N-1}^N=B_{N-1}^N=0, \\
+    A_{n-1}^N=A_n^N+f_{n-1}\left(1+B_n^N\right), \\
+    B_{n-1}^N=g_{n-1}\left(1+B_n^N\right) 
+\end{cases}    
+\end{equation}
+
+\begin{defn}
+    Nous disons qu'un modèle court, les prix des T-bonds $p(n,N)$ est un modèle de structure par termes affine.
+    \begin{equation}
+    p(n, N) = \exp(-A_n^N - (1 + B_n^N) r_n), \quad 0 \leq n < N \leq \overline{N}.
+    \label{eq:my_equation_2.11}
+    \end{equation}
+    
+\end{defn}
+
+\subsection{Modèle de Hull-White à temps discret}
+
+Rappelons que 
+\begin{equation}
+    r_{n+1} = r_n + (\Phi_n - a_n r_n) \Delta + \sigma_n \sqrt{\Delta} W_n, \quad n = 0, \ldots, \bar{N} - 1
+\end{equation}
+Pour la simplicité, nous ne considérons que $a_n$ et $\sigma_n$ sont constantes, à savoir $a_n \equiv a $ et $ \sigma_n \equiv \sigma$, donc on a 
+\begin{equation}
+    r_{n+1} = r_n + (\Phi - a r_n) \Delta + \sigma \sqrt{\Delta} W_n, \quad n = 0, \ldots, \bar{N} - 1
+\end{equation}
+
+Soit la fonction génératrice des moments pour une variable aléatoire normalement distribuée \( X \sim \mathcal{N}(\mu, \sigma^2) \) est donnée par :
+\begin{equation}
+M_X(t) = \exp\left(\mu t + \frac{\sigma^2 t^2}{2}\right)
+\end{equation}
+
+Alors
+\begin{equation}
+\tilde{Q}_n(r_n, \lambda) = \exp(-f_n(\lambda) - g_n(\lambda)r), \quad r, \lambda \in \mathbb{R},
+\end{equation}
+avec 
+\begin{equation}
+    f_n{\lambda} = \Phi_n \Delta \lambda -\frac{\sigma^2\Delta}{2}\lambda^2 \quad et \quad g_n (\lambda) = \lambda(1-a\Delta)
+\end{equation}
+donc on a par \ref{eq:my_equation_2.8},\ref{eq:my_equation_2.9},\ref{eq:my_equation_2.11}, on a 
+\begin{equation}
+    p(n, N) = \exp(-A_n^N - (1 + B_n^N) r_n), \quad 0 \leq n < N \leq \overline{N}.
+    \end{equation}
+où
+\begin{equation}
+    \begin{cases}
+    A_{N-1}^{N} = B_{N-1}^{N} = 0, \\
+    A_{n-1}^{N} = A_n^{N} + \Phi_{n-1} \Delta (1 + B_n^{N}) - \frac{\sigma^2 \Delta}{2} (1 + B_n^{N})^2, \\
+    B_{n-1}^{N} = (1 + B_n^{N})(1 - a\Delta).
+    \end{cases}
+\end{equation}
+pour tout $n \le N - 2 $
+
+\begin{equation}
+    \begin{cases}
+        A_n^N = \sum_{k=n}^{N-2} \left( \Phi_k \Delta (1 + B_{k+1}^N) - \frac{\sigma^2 \Delta}{2} (1 + B_{k+1}^N)^2 \right), \\
+    B_n^N = (1 - a\Delta)^{N-n-2} (N - n - 1 - a\Delta).
+    \end{cases}
+\end{equation}
+
+dans le cas simplifié $a = 0$, la relation est donnée par
+
+\begin{align}
+A_n^N - A_{n+1}^N &= (N - n - 1)\Phi_n \Delta - \frac{(N - n - 1)^2 \sigma^2 \Delta}{2}, \\
+(1 + B_n^N)r_n - (1 + B_{n+1}^N)r_{n+1} &= (N - n)r_n - (N - n - 1)(r_n + \Phi_n \Delta + \sigma \Delta W_n),
+\end{align}
+et le taux \( r_n \) 
+\begin{equation}
+r_n = -\frac{\log p(n, N) + A_n^N}{N - n},
+\end{equation}
+par la recursivité, le prix des T-bonds donné pars:
+\begin{equation}
+p(n + 1, N) = p(n, N) \exp\left( -\frac{\log p(n, N) + A_n^N}{N - n} - \frac{\sigma^2 \Delta (N - n - 1)^2 - (N - n - 1)\sigma \Delta W_n}{2} \right).
+\end{equation}
+
+Dans le modèle de Hull-White en temps discret,
+\[
+r_{n+1} = r_n + \Phi_n \Delta + \sigma \Delta W_n,
+\]
+on a 
+\[
+\Phi_n = \frac{R(0,n+1) - R(0,n)}{\Delta} + \sigma^2 \left(n + \frac{1}{2}\right).
+\]
+
+ Pour chaque choix de \(\sigma\), la calibration du modèle consiste simplement à poser
+\[
+\Phi_n = \frac{R^*(0,n+1) - R^*(0,n)}{\Delta} + \sigma^2 \left(n + \frac{1}{2}\right),
+\]
+où \(R^*\) est le taux forward du marché, où
+\[
+R^*(0,n) = \log \left(\frac{p^*(0,n)}{p^*(0,n+1)}\right).
+\]
+
+
+%----------------------------------------------------------------------------------------
+%	SECTION
+%----------------------------------------------------------------------------------------
+Nous décrivons ensuite les modèles de type "forward", pour lesquels certains des problèmes mentionnés ci-dessus ne se posent pas.
+\section{Modèles Forward}
+
+Dans un modèle forward, on attribue directement la dynamique des processus de prix $p(·,N)$ pour chaque $N=1,...,\bar{N}$. Dans ce cas, la structure à terme initiale $p^*(0,N), N = 1,...,\bar{N}$, est automatiquement supposée comme la donnée initiale des processus de prix.
+Le résultat suivant contient une caractérisation de la mesure de martingale exprimée en termes d'une relation importante entre les prix des $T$-bonds :
+
+\setcounter{equation}{0}
+\renewcommand{\theequation}{\thesection.\arabic{equation}}
+\begin{equation}
+    \frac{p(n,N)}{p(n,n+1)} = E^Q[p(n+1,N)|F_n], \quad 0 \leq n < N \leq \bar{N}
+    \label{eq:my_equation_2.2.1}
+\end{equation}
+
+
+En examinant la formule (2.2.1), on introduit une dynamique récursive du type suivant
+
+\begin{equation}
+    p(n,N) = \frac{p(n-1,N)}{p(n-1,n)} \mu_{n,N}, \quad 0 \leq n < N \leq \bar{N}
+    \label{eq:my_equation_2.2.2}
+\end{equation}
+
+
+Où $\mu_{n,N}$ sont des variables aléatoires définies sur un espace de probabilité filtré $(\Omega,F,\mathbb{P},(\mathcal{F}_n))$. D'après (\ref{eq:my_equation_2.2.1})et (\ref{eq:my_equation_2.2.2}) on obtient la formule suivante, d'où implique que les prix actualisés des $T$-bonds sont des martingales dans la mesure de probabilité $Q$, elle constitue la base de l'étude de l'existence et de l'unicité de la mesure de martingale (ou des propriétés d'absence d'opportunité d'arbitrage et de complétude du modèle).
+
+\begin{equation}
+    E^Q[\mu_{n,N}|F_{N-1}] = 1, \quad 0 \leq n < N \leq \bar{N}
+    \label{eq:my_equation_2.2.3}
+\end{equation}
+
+Preuve.
+
+D'après (2.2.2), $\mu_{n,N}={p(n,N)p(n-1,n) \over p(n-1,N)}$, alors on a :
+
+\begin{align*}
+    E[\mu_{n,N} | F_{n-1}] 
+    & = E\left[\frac{p(n,N)p(n-1,n)}{p(n-1,N)} | F_{n-1}\right] \\
+    & = E[p(n,N) | F_{n-1}] \frac{p(n-1,n)}{p(n-1,N)} \\
+    & = \frac{p(n-1,N)}{p(n-1,n)} \frac{p(n-1,n)}{p(n-1,N)} \text{(car} \ {p(n-1,n) \over p(n-1,N)} \ \text{est} \ F_{n-1}\ \text{mesurable)}\\
+    & = 1 \tag*{$\Box$}
+\end{align*}
+
+
+
+Le résultat suivant donne l'expression explicite des processus de prix en termes de données initiales
+\begin{equation}
+    p(n,N) = \frac{p(0,N)}{p(0,n)} \prod_{k=1}^{n}\frac{\mu_{k,N}}{\mu_{k,n}}
+    \label{eq:my_equation_2.2.4}
+\end{equation}
+
+
+Remarquons que (\ref{eq:my_equation_2.2.4}) exprime le prix d'un T-bonds en termes des prix initiaux $p(0,\cdot)$ ( observable sur le marché ) et des facteurs stochastiques $\mu_{n,N}$ du modèle considéré. Par conséquent, comme nous l'avons déjà souligné, une caractéristique commode des modèles forward est le fait que la structure initiale des termes $p^*(0,N)$, $N = 1, . . . , \bar{N}$ , est automatiquement supposée comme la donnée initiale du processus de prix.
+
+En combinant la formule récursive (2.2.2) pour les prix des $T$-bonds avec la définition (1.5) des taux, nous obtenons la formules récursive suivante pour les processus des taux.
+
+$$L(n,N)=(L(n-1,N)+{1 \over \triangle}) {\mu_{n,N} \over \mu_{n,N+1}} - {1 \over \triangle}$$
+    \text{Preuve.}
+
+\begin{align*}
+    L(n,N) &= \frac{1}{\triangle} \left( \frac{p(n,N)}{p(n,N+1)} - 1 \right) (ici, M-N=N+1-N=1)\\
+    &= \frac{1}{\triangle} \left( \frac{p(n-1,N)\mu_{n,N}}{p(n-1,n)p(n,N+1)} - 1 \right) (\text{d'après} (2.2.2))\\
+    &= \frac{1}{\triangle} \left( \frac{p(n-1,N)\mu_{n,N} p(n-1,n)}{p(n-1,n)p(n-1,N+1) \mu_{n,N+1}} - 1 \right) (\text{d'après} (2.2.2))\\
+    &= \frac{1}{\triangle} \left( \frac{p(n-1,N)\mu_{n,N}}{p(n-1,N+1)\mu_{n,N+1}} - 1 \right) \\
+    &= \left( L(n-1,N) + \frac{1}{\triangle} \right) \frac{\mu_{n,N}}{\mu_{n,N+1}} - \frac{1}{\triangle} \tag*{$\Box$}
+\end{align*}
+
+
+
+De la même manière, on obtient les formules suivantes : 
+
+$$R(n,N)=R(n-1,N) + \log({\mu_{n,N} \over \mu_{n,N+1}})$$
+
+$$r_n=-r_{n-1}-\log(p(n-1,n+1))-\log(\mu_{n,n+1})$$
+
+Le modèle binomial forward est une extension du modèle binomial classique utilisé en finance pour évaluer les options et autres instruments dérivés. Dans ce modèle, on considère la dynamique des prix d'un actif financier sur une période de temps discrète, en supposant que le prix de l'actif peut soit augmenter, soit diminuer à chaque étape, avec des probabilités fixées.
+
+Dans le contexte des taux d'intérêt et des obligations, le modèle binomial forward peut être utilisé pour estimer l'évolution future des taux d'intérêt et des prix des obligations à différentes échéances. Plus précisément, on peut utiliser ce modèle pour estimer le prix d'une obligation ou d'un produit dérivé lié aux taux d'intérêt dans le futur, en supposant des mouvements binomiaux des taux d'intérêt.
+
+Ici, on considère un modèle forward du type (2.2.1) dans lequel \(\mu_{n,N}\) sont des variables aléatoires qui peuvent prendre deux valeurs :
+\begin{equation}
+\mu_{n,N} =
+\begin{cases}
+u_{n,N} \\
+d_{n,N}
+\end{cases} 
+\end{equation}
+
+où \(0 < d_{n,N} < u_{n,N}\). Si \(d_{n,N} < 1 < u_{n,N}\), alors il existe une mesure de martingale \(Q\). \(Q\) est une mesure de martingale si et seulement si (2.2.3) tient en compte, alors on a :
+$$
+1=E^Q[\mu_{n,N}|F_{N-1}]=u_{n,N}Q(\mu_{n,N}=u_{n,N}|F_{N-1})+d_{n,N}Q(\mu_{n,N}=d_{n,N}|F_{N-1})
+$$
+d'où
+    \begin{align*}    
+    q_{n,N} :&= Q(\mu_{n,N} = u_{n,N})\\
+    &= 1 - Q(\mu_{n,N} = d_{n,N}) \\
+    &= \frac{1 - d_{n,N}}{u_{n,N} - d_{n,N}} 
+    \end{align*}
+
+Nous prenons un exemple pour bien comprendre. On considère un modèle binomial forward avec \(\bar{N} = 3\) et suppose la dynamique (2.2.1) avec \(u_{n,N} \equiv u = 2\) et \(d_{n,N} \equiv d = \frac{1}{2}\) pour \(1 \leq n \leq N \leq 3\).
+
+D'abord on exprime les prix des $T$-bonds dans le modèle binomial forward avec $\bar N=3$ : 
+\begin{align*}
+\text{Si } N &= 1, \text{ alors le prix de } T\text{-bonds est } p(0,1) \text{ à } t=0 \text{ et } 1 \text{ à } t=1; \\
+&\text{Ici}, \text{p(0,1) est considéré comme donné initial de T-bonds}\\
+\text{Si } N &= 2, \text{ alors le prix de } T\text{-bonds est } p(0,2) \text{ à } t=0, \text{ } p(1,2) = \frac{p(0,2)}{p(0,1)}\mu_{1,2} \text{ à } t=1, \text{ et } 1 \text{ à } t=2; \\
+&\text{d'après (2.2.2) à t=1, et 1 à t=2}\\
+\text{Si } N &= 3, \text{ alors le prix de } T\text{-bonds est } p(0,3) \text{ à } t=0, \text{ } p(1,3) = \frac{p(0,3)\mu_{1,3}}{p(0,1)\mu_{1,1}} \text{ à } t=1, \\
+& \quad p(2,3) = \frac{p(0,3)}{p(0,2)}\frac{\mu_{1,3}\mu_{2,3}}{\mu_{1,2}} \text{ à } t=2, \text{ et } 1 \text{ à } t=3;
+\end{align*}
+On fait le calcul de $p(2,3)$ comme suit :
+\begin{align*}
+    p(2,3) 
+    &= {p(1,3) \over p(1,2)}\ \mu_{2,3}\\
+    &={{p(0,3) \over p(0,1)}\ \mu_{1,3} \over {p(0,2) \over p(0,1)}\mu_{1,2}}\ \mu_{2,3}  \quad \text{  (d'après\ (2.2.2))}\\
+    &={p(0,3) \over p(0,2)}{\mu_{1,3}\mu_{2,3} \over \mu_{1,2}}
+\end{align*}
+
+alors \(w = (\mu_{1,2}, \mu_{1,3}, \mu_{2,3})\), avec \(\mu_{1,2}, \mu_{1,3}, \mu_{2,3} \in \{u, d\}\). Donc l'espace de probabilité contient 8 éléments :
+\begin{align*}
+w_1 &= (u, u, u), & w_2 &= (u, u, d), & w_3 &= (u, d, u), & w_4 &= (u, d, d), \\
+w_5 &= (d, u, u), & w_6 &= (d, u, d), & w_7 &= (d, d, u), & w_8 &= (d, d, d).
+\end{align*}
+
+Ensuite, on note \(q_k = Q(\{w_k\})\) pour \(k = 1, \ldots, 8\). Alors on obtient :
+\[
+Q(\mu_{1,2} = u) = \frac{1 - d_{1,2}}{u_{1,2} - d_{1,2}} = \frac{1 - \frac{1}{2}}{2 - \frac{1}{2}} = \frac{1}{3} \quad \text{d'après\ (2.2.6)}
+\]
+
+ensuite, \(Q(\mu_{1,2} = u) = Q(\mu_{1,3} = u) = Q(\mu_{2,3} = u)\), \(\mu_{1,2}, \mu_{1,3}, \mu_{2,3}\) sont deux à deux indépendantes, par 
+\begin{align*}
+    Q(\mu_{1,2}=u)&=q_1+q_2+q_3+q_4=\frac{1}{3}, \\
+    Q(\mu_{1,3}=u)&=q_1+q_2+q_5+q_6=\frac{1}{3}, \\
+    Q(\mu_{2,3}=u)&=q_1+q_3+q_5+q_7=\frac{1}{3}
+\end{align*},on obtient le système suivant :
+\[
+\begin{cases}
+q_1 + q_2 + q_3 + q_4 = \frac{1}{3}, \\
+q_1 + q_2 + q_5 + q_6 = \frac{1}{3}, \\
+q_1 + q_3 + q_5 + q_7 = \frac{1}{3}.
+\end{cases}
+\]
+De plus, \(\mu_{2,3}\) est indépendante de \(\mu_{1,3}\) et \(\mu_{1,2}\), on a 
+\begin{align*}
+q_1&=Q(\mu_{1,2}=\mu_{1,3}=u)\ Q(\mu_{2,3}=u)=\frac{1}{3}(q_1+q_2)\\
+q_4&=Q(\mu_{1,2}=u,\mu_{1,3}=d)\ Q(\mu_{2,3}=d)=\frac{2}{3}(q_3+q_4)\\
+q_5&=Q(\mu_{1,2}=d,\mu_{1,3}=u)\ Q(\mu_{2,3}=u)=\frac{1}{3}(q_5+q_6)\\
+q_7&=Q(\mu_{1,2}=\mu_{1,3}=d)\ Q(\mu_{2,3}=u)=\frac{1}{3}(q_7+q_8)\\    
+\end{align*}
+
+d'où \(q_2 = 2q_1\). De même, \(q_4 = 2q_3, q_6 = 2q_5, q_8 = 2q_7\). Avec le système précédant, on obtient :
+\[
+\begin{cases}
+q_1 = q - \frac{1}{9}, \\
+q_2 = 2q_1, \\
+q_3 = \frac{2}{9} - q = q_5, \\
+q_4 = 2q_3, \\
+q_6 = 2q_5, \\
+q_7 = q, \\
+q_8 = 2q_7.
+\end{cases}
+\]
+avec \(\frac{1}{9} < q < \frac{2}{9}\). En prenant par exemple \(q = \frac{4}{27}\), nous obtenons l'unique mesure martingale par rapport à laquelle \(\mu_{1,2}, \mu_{1,3}, \mu_{2,3}\) sont des variables aléatoires indépendantes.
+
+
